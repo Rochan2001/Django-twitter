@@ -5,9 +5,9 @@ from .models import Post
 
 
 def home(request):
-    context = {'posts': Post.objects.all()}
+    context = {'posts': Post.objects.all(), "home_page": "active"}
     return render(request, 'tweet/home.html', context)
 
 
 def about(request):
-    return render(request, 'tweet/about.html', context={'title': "about"})
+    return render(request, 'tweet/about.html', context={'title': "about", "about_page": "active"})

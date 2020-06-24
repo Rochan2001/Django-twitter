@@ -1,3 +1,7 @@
-button:hover{
+a{
     color: #ffc107
+}
+
+a:hover{
+    color: black
 }
