@@ -30,9 +30,11 @@
       	          <li class="{{ home_page }}">
       	            <a href="{% url 'tweet-home' %}" aria-expanded="false">Home</a>
       	          </li>
-      	          <li>
-      	              <a href="{% url 'tweet-home' %}">Latest Tweets</a>
-      	          </li>
+                  {% if user.is_authenticated %}
+          	          <li class="{{ my_tweets }}">
+          	              <a href="{% url 'user-tweets' user.username %}">My Tweets</a>
+          	          </li>
+                  {% endif %}
                   <li class="{{ profile_page }}">
                       {% if user.is_authenticated %}
                         <a href="{% url 'profile' %}" aria-expanded='false'>Profile</a>

@@ -9,5 +9,6 @@ urlpatterns = [
     path('post/new/', PostCreateView.as_view(), name='tweet-create'),
     path('post/<int:pk>/update/', PostUpdateView.as_view(), name='tweet-update'),
     path('post/<int:pk>/delete/', PostDeleteView.as_view(), name='tweet-delete'),
+    path('like', views.like_post, name='like_post'),
     path('about/', views.about, name='tweet-about')
 ]

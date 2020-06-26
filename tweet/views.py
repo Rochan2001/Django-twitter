@@ -3,6 +3,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from .models import Post
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
+from django.http import HttpResponseRedirect
 # Create your views here.
 
 
@@ -32,6 +33,11 @@ class UserPostListView(ListView):
     ordering = ['-date_posted']
     paginate_by = 5
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["my_tweets"] = "active"
+        return context
+
     def get_queryset(self):
         user = get_object_or_404(User, username=self.kwargs.get('username'))
         return Post.objects.filter(author=user).order_by('-date_posted')
@@ -39,6 +45,12 @@ class UserPostListView(ListView):
 
 class PostDetailView(DetailView):
     model = Post
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        MyObject = self.object  # for accesing the current object
+        context['total_likes'] = MyObject.total_likes()
+        return context
 
 
 class PostCreateView(LoginRequiredMixin, CreateView):
@@ -80,3 +92,9 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
 def about(request):
     return render(request, 'tweet/about.html', context={'title': "about", "about_page": "active"})
+
+
+def like_post(request):
+    post = get_object_or_404(Post, id=request.POST.get('post_id'))
+    post.likes.add(request.user)
+    return HttpResponseRedirect(post.get_absolute_url())
