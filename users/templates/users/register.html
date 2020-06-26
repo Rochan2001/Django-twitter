@@ -1,5 +1,7 @@
 {% extends "tweet/base.html" %}
 {% load crispy_forms_tags %}
+{% load socialaccount %}
+{% providers_media_js %}
 {%block content %}
     <div class="content-section">
         <form method="POST">
@@ -12,6 +14,13 @@
             </fieldset>
             <div class="form-group">
                 <button class="btn btn-outline-info" type="submit">Sign Up</button>
+            </div>
+            <p>
+                OR
+            </p>
+            <div class="form-group">
+                <a class="btn btn-danger" href="{% provider_login_url "google" %}">Google</a>
+                <a class="btn btn-primary" href="{% provider_login_url "github" %}">Github</a>
             </div>
         </form>
         <div class="border-top pt-3">

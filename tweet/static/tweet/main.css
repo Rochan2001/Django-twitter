@@ -99,3 +99,10 @@ a.article-title:hover {
 a.link:hover{
     color: black
 }
+
+#btn-inv{
+    background: transparent;
+    border: none !important;
+    font-size:0;
+
+}

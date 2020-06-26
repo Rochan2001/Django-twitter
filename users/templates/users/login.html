@@ -1,5 +1,7 @@
 {% extends "tweet/base.html" %}
 {% load crispy_forms_tags %}
+{% load socialaccount %}
+{% providers_media_js %}
 {%block content %}
     <div class="content-section">
         <form method="POST">

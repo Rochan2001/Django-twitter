@@ -11,14 +11,16 @@
         <p class="article-content">{{ object.content }}</p>
         <div>
             {% if object.author == user %}
-              <a href="{% url 'tweet-update' object.id %}" class="btn btn-secondary btn-sm mt-1 mb-1">Update</a>
-              <a href="{% url 'tweet-delete' object.id %}" class="btn btn-danger btn-sm mt-1 mb-1">Delete</a>
+              <a href="{% url 'tweet-update' object.id %}" class="btn btn-secondary btn-sm mt-1 mb-1">Update <i class="fa fa-refresh fa-lg" aria-hidden="true"></i>
+</a>
+              <a href="{% url 'tweet-delete' object.id %}" class="btn btn-danger btn-sm mt-1 mb-1">Delete <i class="fa fa-trash fa-lg" aria-hidden="true"></i>
+</a>
             {% endif %}
         </div>
         {% if user.is_authenticated %}
             <form action="{% url 'like_post' %}" method="POST">
                 {% csrf_token %}
-                <button name="post_id" type="submit" value="{{post.id}}" class="btn btn-primary btn-sm mt-1 mb-1">Like({{total_likes}})</button>
+                <button name="post_id" type="submit" value="{{post.id}}" class=" btn bg-transparent"><i style="color: red" class="fa fa-heart fa-lg" aria-hidden="true"></i> {{total_likes}}</button>
             </form>
         {% else %}
             <button  type="submit" class="btn btn-primary btn-sm mt-1 mb-1">Like({{total_likes}})</button>
