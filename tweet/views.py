@@ -7,9 +7,9 @@ from django.http import HttpResponseRedirect
 # Create your views here.
 
 
-def home(request):
-    context = {'posts': Post.objects.all(), "home_page": "active"}
-    return render(request, 'tweet/home.html', context)
+# def home(request):
+#     context = {'posts': Post.objects.all(), "home_page": "active"}
+#     return render(request, 'tweet/home.html', context)
 
 
 class PostListView(ListView):
@@ -96,5 +96,8 @@ def about(request):
 
 def like_post(request):
     post = get_object_or_404(Post, id=request.POST.get('post_id'))
-    post.likes.add(request.user)
+    if post.likes.filter(id=request.user.id).exists():
+        post.likes.remove(request.user)
+    else:
+        post.likes.add(request.user)
     return HttpResponseRedirect(post.get_absolute_url())

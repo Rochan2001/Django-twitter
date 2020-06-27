@@ -20,10 +20,10 @@
         {% if user.is_authenticated %}
             <form action="{% url 'like_post' %}" method="POST">
                 {% csrf_token %}
-                <button name="post_id" type="submit" value="{{post.id}}" class=" btn bg-transparent"><i style="color: red" class="fa fa-heart fa-lg" aria-hidden="true"></i> {{total_likes}}</button>
+                <button id="like" name="post_id" type="submit" value="{{post.id}}" class=" btn bg-transparent"><i style="color:red" class="fa fa-heart fa-lg" aria-hidden="true"></i> {{total_likes}}</button>
             </form>
         {% else %}
-            <button  type="submit" class="btn btn-primary btn-sm mt-1 mb-1">Like({{total_likes}})</button>
+        <button class=" btn bg-transparent"><i style="color: red" class="fa fa-heart fa-lg" aria-hidden="true"></i> {{total_likes}}</button>
         {% endif %}
 
       </div>
