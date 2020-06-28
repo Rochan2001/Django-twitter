@@ -1,6 +1,11 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib import messages
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from django.views.generic import (
+    ListView,
+    CreateView,
+    UpdateView,
+    DeleteView
+    )
 from .models import Post, Comment
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
@@ -27,6 +32,26 @@ class PostListView(ListView):
         context = super().get_context_data(**kwargs)
         context.update(self.extra_context)
         return context
+
+
+class UserFavouriteListView(ListView):
+    model = Post
+    template_name = 'tweet/user_favourites.html'
+    context_object_name = 'posts'
+    paginate_by = 5
+
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     user = self.request.user
+    #     context['favourite_posts'] = user.favourite.all().order_by('-id')
+    #     return context
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['favourite_page'] = "active"
+        return context
+
+    def get_queryset(self):
+        return Post.objects.filter(favourite=self.request.user).order_by('-date_posted')
 
 
 class UserPostListView(ListView):
@@ -70,6 +95,12 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
 def PostDetailView(request, pk):
     post = get_object_or_404(Post, id=pk)
     comments = Comment.objects.filter(post=post).order_by('-id')
+    is_favourite = False
+    is_liked = False
+    if post.favourite.filter(id=request.user.id).exists():
+        is_favourite = True
+    if post.likes.filter(id=request.user.id).exists():
+        is_liked = True
     if request.method == 'POST':
         comment_form = CommentForm(request.POST)
         if comment_form.is_valid():
@@ -82,6 +113,8 @@ def PostDetailView(request, pk):
             comment_form = CommentForm()
 
     context = {
+        'is_liked': is_liked,
+        'is_favourite': is_favourite,
         'post': post,
         'total_likes': post.total_likes(),
         'comments': comments,
@@ -182,4 +215,13 @@ def like_post(request):
         post.likes.remove(request.user)
     else:
         post.likes.add(request.user)
+    return HttpResponseRedirect(post.get_absolute_url())
+
+
+def favourite_post(request, pk):
+    post = get_object_or_404(Post, id=pk)
+    if post.favourite.filter(id=request.user.id).exists():
+        post.favourite.remove(request.user)
+    else:
+        post.favourite.add(request.user)
     return HttpResponseRedirect(post.get_absolute_url())
