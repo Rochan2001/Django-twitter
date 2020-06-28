@@ -33,6 +33,16 @@ class PostListView(ListView):
         context.update(self.extra_context)
         return context
 
+    def get_queryset(self):
+        result = super(PostListView, self).get_queryset()
+        query = self.request.GET.get('q')
+        if query:
+            postresult = Post.objects.filter(title__contains=query).order_by('-date_posted')
+            result = postresult
+        else:
+            result = Post.objects.all().order_by('-date_posted')
+        return result
+
 
 class UserFavouriteListView(ListView):
     model = Post
