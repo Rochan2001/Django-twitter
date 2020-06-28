@@ -3,7 +3,10 @@ body {
     color: #333333;
     margin-top: 5rem;
 }
-
+#d{
+    padding: 10px 5px;
+    text-align: center;
+}
 h1,
 h2,
 h3,

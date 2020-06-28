@@ -149,3 +149,12 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'bahadur.rochan@gmail.com'
 EMAIL_HOST_PASSWORD = 'naruto8008'
+
+# Email settings
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = '587'
+EMAIL_HOST_USER = 'rochanthegreat@gmail.com'
+EMAIL_HOST_PASSWORD = 'luffy8008'
+EMAIL_USE_TLS = True
+# EMAIL_USE_SSL = False

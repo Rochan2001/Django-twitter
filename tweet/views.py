@@ -12,6 +12,7 @@ from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from .forms import CommentForm
 from django.urls import reverse_lazy
+from django.core.mail import send_mail
 # Create your views here.
 
 
@@ -217,6 +218,27 @@ class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
 def about(request):
     return render(request, 'tweet/about.html', context={'title': "about", "about_page": "active"})
+
+
+def contact(request):
+    if request.method == "POST":
+        message_name = request.POST['message-name']
+        message_email = request.POST['message-email']
+        message = request.POST['message-email']
+
+        # send an Email
+        send_mail(
+            f'Query by {message_name}',  # subject
+            message,  # message
+            message_email,  # from
+            ['bahadur.romith@gmail.com', 'bahadur.rochan@gmail.com'],  # To Email
+        )
+
+        messages.success(request, f'Thanks {message_name} \n We recieved your email and will respong shortly...')
+        return render(request, 'tweet/contact.html', {'message_name': message_name})
+
+    else:
+        return render(request, 'tweet/contact.html')
 
 
 def like_post(request):

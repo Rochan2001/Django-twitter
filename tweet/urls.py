@@ -1,6 +1,14 @@
 from django.urls import path
 from . import views
-from .views import PostListView, PostDetailView, PostCreateView, PostUpdateView, PostDeleteView, UserPostListView, CommentDeleteView, UserFavouriteListView
+from .views import (
+    PostListView,
+    PostDetailView,
+    PostCreateView,
+    PostUpdateView,
+    PostDeleteView,
+    UserPostListView,
+    CommentDeleteView,
+    UserFavouriteListView)
 
 urlpatterns = [
     path('', PostListView.as_view(), name='tweet-home'),
@@ -13,5 +21,6 @@ urlpatterns = [
     path('comment/<int:pk>/delete/', CommentDeleteView.as_view(), name='tweet-comment-delete'),
     path('like/', views.like_post, name='like_post'),
     path('about/', views.about, name='tweet-about'),
-    path('favourites/', UserFavouriteListView.as_view(), name='post-favourite-list')
+    path('favourites/', UserFavouriteListView.as_view(), name='post-favourite-list'),
+    path('contact/', views.contact, name='tweet-contact')
 ]
