@@ -1,19 +1,20 @@
 {% extends "tweet/base.html" %}
+{% load crispy_forms_tags %}
 {% block content %}
     <article class="media content-section">
-        <img class="rounded-circle article-img" src="{{ object.author.profile.image.url }}"></img>
+        <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}"></img>
       <div class="media-body">
         <div class="article-metadata">
-          <a  class="mr-2 link-color" href="{% url 'user-tweets' object.author.username %}">{{ object.author }}</a>
-          <small class="text-muted">{{ object.date_posted |date:"F d, Y" }}</small>
+          <a  class="mr-2 link-color" href="{% url 'user-tweets' post.author.username %}">{{ post.author }}</a>
+          <small class="text-muted">{{ post.date_posted |date:"F d, Y" }}</small>
         </div>
-        <h2 class="article-title">{{ object.title }}</h2>
-        <p class="article-content">{{ object.content }}</p>
+        <h2 class="article-title">{{ post.title }}</h2>
+        <p class="article-content">{{ post.content }}</p>
         <div>
-            {% if object.author == user %}
-              <a href="{% url 'tweet-update' object.id %}" class="btn btn-secondary btn-sm mt-1 mb-1">Update <i class="fa fa-refresh fa-lg" aria-hidden="true"></i>
+            {% if post.author == user %}
+              <a href="{% url 'tweet-update' post.id %}" class="btn btn-secondary btn-sm mt-1 mb-1">Update <i class="fa fa-refresh fa-lg" aria-hidden="true"></i>
 </a>
-              <a href="{% url 'tweet-delete' object.id %}" class="btn btn-danger btn-sm mt-1 mb-1">Delete <i class="fa fa-trash fa-lg" aria-hidden="true"></i>
+              <a href="{% url 'tweet-delete' post.id %}" class="btn btn-danger btn-sm mt-1 mb-1">Delete <i class="fa fa-trash fa-lg" aria-hidden="true"></i>
 </a>
             {% endif %}
         </div>
@@ -25,7 +26,24 @@
         {% else %}
         <button class=" btn bg-transparent"><i style="color: red" class="fa fa-heart fa-lg" aria-hidden="true"></i> {{total_likes}}</button>
         {% endif %}
-
-      </div>
+    </div>
     </article>
+    <div class="media-body">
+            <form method="POST">
+                {% csrf_token %}
+                {{  comment_form |crispy  }}
+                {% if user.is_authenticated %}
+                    <div class="form-group">
+                        <button class="btn btn-outline-info" type="submit">Post</button>
+                    </div>
+                {% else %}
+                    <div class="form-group">
+                        <button class="btn btn-outline-info" type="submit" disabled>Post</button>
+                    </div>
+            </form>
+                {% endif %}
+    </div>
+    <div class="media content-section">
+              {% include 'tweet/post_comments.html' %}
+    </div>
 {% endblock content %}
