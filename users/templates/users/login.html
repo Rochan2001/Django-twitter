@@ -18,6 +18,14 @@
                     <a href="{% url 'password_reset' %}" class="link">Forgot Password?</a>
                 </small>
             </div>
+            <p>
+                OR
+            </p>
+            <div class="form-group">
+                <a class="btn btn-danger" href="{% provider_login_url "google" %}"><i class="fab fa-lg fa-google"></i> Google</a>
+                <a class="btn btn-dark" href="{% provider_login_url "github" %}"><i class="fab fa-github"></i> Github</a>
+            </div>
+        </form>
         </form>
         <div class="border-top pt-3">
             <small class="text-muted">Need An Account? <a href="{% url 'register' %}" class="ml-2 link">Sign Up Now</a></small>

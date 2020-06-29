@@ -13,6 +13,7 @@ from django.http import HttpResponseRedirect
 from .forms import CommentForm
 from django.urls import reverse_lazy
 from django.core.mail import send_mail
+from django.db.models import Q
 # Create your views here.
 
 
@@ -35,14 +36,16 @@ class PostListView(ListView):
         return context
 
     def get_queryset(self):
-        result = super(PostListView, self).get_queryset()
+        queryset = super(PostListView, self).get_queryset()
         query = self.request.GET.get('q')
         if query:
-            postresult = Post.objects.filter(title__contains=query).order_by('-date_posted')
-            result = postresult
+            queryset = Post.objects.filter(
+                Q(title__icontains=query) |
+                Q(author__username=query) |
+                Q(content__icontains=query)).order_by('-date_posted')
+            return queryset
         else:
-            result = Post.objects.all().order_by('-date_posted')
-        return result
+            return Post.objects.all().order_by('-date_posted')
 
 
 class UserFavouriteListView(ListView):

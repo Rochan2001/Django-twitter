@@ -12,6 +12,10 @@
             <p class="article-content">{{ post.content }}</p>
           </div>
         </article>
+        {% empty %}
+            <div class="container-fluid">
+                <h3> No Favourite Posts Found.</h3>
+            </div>
     {% endfor %}
     {% if is_paginated %}
         {% if page_obj.has_previous %}
