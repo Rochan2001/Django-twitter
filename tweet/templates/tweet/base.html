@@ -23,7 +23,7 @@
                     {% if user.is_authenticated %}
                         <img src="{{ user.profile.image.url }}" class="img logo rounded-circle mb-5"></img>
                     {% else %}
-                        <img src=".././media/upload.png" class="img logo rounded-circle mb-5"></img>
+                        <img src="{% static "upload.png" %}" class="img logo rounded-circle mb-5"></img>
                     {% endif %}
           	        <ul class="list-unstyled components mb-5">
           	          <li class="{{ home_page }}">
