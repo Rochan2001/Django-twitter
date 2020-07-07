@@ -27,9 +27,7 @@
                     {% endif %}
           	        <ul class="list-unstyled components mb-5">
           	          <li class="{{ home_page }}">
-          	            <a href="{% url 'tweet-home' %}" aria-expanded="false">Home
-                            <i class="fa fa-home fa-lg" aria-hidden="true"></i>
-                        </a>
+          	            <a href="{% url 'tweet-home' %}" aria-expanded="false"><i class="fa fa-home fa-lg" aria-hidden="true"></i> Home</a>
           	          </li>
                     {% if user.is_authenticated %}
       	             <li class="{{ my_tweets }}">
@@ -38,19 +36,19 @@
                       </a>
       	             </li>
                      <li class="{{ favourite_page }}">
-      	                  <a href="{% url 'post-favourite-list' %}">My Favourites <i class="fab fa-lg fa-gratipay"></i></a>
+      	                  <a href="{% url 'post-favourite-list' %}"> <i class="fab fa-lg fa-gratipay"></i> My Favourites</a>
       	             </li>
                     {% endif %}
                     <li class="{{ profile_page }}">
                         {% if user.is_authenticated %}
-                            <a href="{% url 'profile' %}" aria-expanded='false'>Profile<i class="fa fa-user fa-lg" aria-hidden="true"></i></a>
+                            <a href="{% url 'profile' %}" aria-expanded='false'><i class="fa fa-user fa-lg" aria-hidden="true"></i> Profile</a>
                         {% endif %}
                     </li>
   	                <li class="{{ about_page }}">
-                        <a href="{% url 'tweet-about' %}" aria-expanded="false">About<i class="fa fa-info-circle fa-lg" aria-hidden="true"></i></a>
+                        <a href="{% url 'tweet-about' %}" aria-expanded="false"><i class="fa fa-info-circle fa-lg" aria-hidden="true"></i> About</a>
   	                 </li>
   	                 <li>
-                        <a href="{% url 'tweet-contact' %}">Contact<i class="fa fa-phone fa-lg" aria-hidden="true"></i></a>
+                        <a href="{% url 'tweet-contact' %}"><i class="fa fa-phone fa-lg" aria-hidden="true"></i> Contact</a>
   	                 </li>
   	                </ul>
                 </div>
