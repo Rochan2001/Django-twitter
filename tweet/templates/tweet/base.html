@@ -31,9 +31,7 @@
           	          </li>
                     {% if user.is_authenticated %}
       	             <li class="{{ my_tweets }}">
-      	              <a href="{% url 'user-tweets' user.username %}">My Tweets
-                          <i class="fab fa-lg fa-twitter"></i>
-                      </a>
+      	              <a href="{% url 'user-tweets' user.username %}"><i class="fab fa-lg fa-twitter"></i> My Tweets</a>
       	             </li>
                      <li class="{{ favourite_page }}">
       	                  <a href="{% url 'post-favourite-list' %}"> <i class="fab fa-lg fa-gratipay"></i> My Favourites</a>
