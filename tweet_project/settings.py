@@ -159,7 +159,7 @@ EMAIL_PORT = '587'
 EMAIL_HOST_USER = 'rochanthegreat@gmail.com'
 EMAIL_HOST_PASSWORD = 'luffy8008'
 EMAIL_USE_TLS = True
-# EMAIL_USE_SSL = False
+EMAIL_USE_SSL = False
 
 
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
